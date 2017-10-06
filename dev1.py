@@ -54,7 +54,22 @@ iris_test2 = iris[indices2[35:]]
 iris_train3 = iris[indices3[:35]]
 iris_test3 = iris[indices3[35:]]
 
-class1 = iris[0:,4]
 
-pylab.plot(class1, len(class1) * [0], "o")
+model = gauss_diag(4)
+model.train(iris_train1)
+
+# on affiche les points sur l'axe des x
+pylab.plot(iris_train1[:, 0], len(iris_train1) * [0], "o")
+
+
+# on crée une distribution normal avec les paramètres qu'on a calculé et on pige des valeurs
+mu = model.mu[0]
+sigma = np.sqrt(model.sigma_sq[0])
+s = np.random.normal(mu, sigma, 1000)
+s.sort()
+
+# pour chaque valeur de la distribution, on calcule la probabilité de celle-ci avec la fonction de densité calculé
+pylab.plot(s, 1/(sigma * np.sqrt(2 * np.pi)) *
+           np.exp(- (s - mu)**2 / (2 * sigma**2)))
+
 pylab.show()
