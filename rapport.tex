@@ -1,0 +1,106 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage{indentfirst}
+\usepackage{amsmath}
+
+\title{Devoir \#1 - IFT3395/6390}
+\author{Julien Allard et André Langlais}
+\date{12 Octobre 2017}
+
+\begin{document}
+	
+	\maketitle
+	\newpage
+	\section{Petit exercice de probabilités}
+	\indent Soit les variables aléatoires suivantes: \\	
+	 		X: Femme atteinte du cancer \\ 		 			
+	 		Y: Test de détection est positif \\
+	 		
+	 Formule de Bayes:
+	 	
+	 \begin{equation}
+		P(X|Y)= \frac{P(X)*P(Y|X)}{P(Y)}
+	 \end{equation}
+	 	
+	 	
+	 Les données de la question nous permettent de trouver les probabilités suivantes:
+	 \begin{equation}
+	 	\begin{split}
+	 	& P(X) = 0.01 \\
+	 	& P(Y|X)  = 0.8 \\
+	 	\end{split}
+	 \end{equation}
+	 
+	 Il nous manque à trouver {P(Y)} qui peut être calculer par la formule suivante:
+	 \begin{equation}
+	 P(Y) = P(Y|X) + P(Y|X')
+	 \end{equation}
+	 
+	 où X' répresente l'évènement complémentaire de X
+	 
+	 \begin{equation}
+	 P(Y)= 0.01*0.80 + 0.99*0.096 = 0.10304
+	 \end{equation}
+	 
+	 Nous avons maintenant toutes les informations requises pour appliquer le théorème de Bayes
+	 
+	 	 \begin{equation}
+	 	 P(X|Y)= \frac{0.01*0.80}{0.10304} \approx 0.0774
+	 	 \end{equation}
+	 
+	 La bonne réponse est donc 6. soit moins que 10\%. 	 
+	 Il peut paraître surprenant que le pourcentage soit si bas, mais on peut vérifier visuellement pourquoi on obtient un tel pourcentage
+	
+	
+	\section{Estimation de densité : paramétrique Gaussienne,
+		v.s. fenêtres de Parzen}
+	\subsection*{Gaussienne isotropique}
+	
+	\subsubsection*{(a)}
+	
+	\subsubsection*{(b)}
+	
+	\subsubsection*{(c)}
+	
+	\subsubsection*{(d)}
+	
+	\subsubsection*{(e)}
+	
+	
+	\subsection{Fenêtres de Parzen avec noyau Gaussien isotropique}
+	
+	\subsubsection*{(a)}
+	
+	\subsubsection*{(b)}
+	
+	\subsubsection*{(c)}
+	
+	
+	\subsection{Capacité}
+	
+	\subsubsection*{(a)}
+	
+	\subsubsection*{(b)}
+	
+	\subsubsection*{(c)}
+	
+	
+	\subsection{Gaussienne diagonale}
+	
+	\subsubsection*{(a)}
+	
+	\subsubsection*{(b)}
+	
+	\subsubsection*{(c)}
+	
+	\subsubsection*{(d)}
+	
+	
+	\subsection{Problème de classification}
+		
+	\subsubsection*{(a)}
+		
+	\subsubsection*{(b)}
+	
+\end{document}\
