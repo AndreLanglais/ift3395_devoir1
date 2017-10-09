@@ -2,53 +2,8 @@
 import numpy as np
 import pylab
 import utilitaires
-
-class gauss_diag:
-    def __init__(self, n_dims):
-        self.n_dims = n_dims
-        self.mu = np.zeros((1, n_dims))
-        self.sigma_sq = np.ones(n_dims)
-        self.cov = np.ones((n_dims, n_dims))
-
-    # Pour un ensemble d'entrainement, la fonction devrait calculer l'estimateur par MV de la moyenne et de la matrice de covariance
-    def train(self, train_data):
-        self.mu = np.mean(train_data, axis=0)
-        self.sigma_sq = np.sum((train_data - self.mu) ** 2.0, axis=0) / train_data.shape[0]
-
-    # Retourne un vecteur de taille nb. ex. de test contenant les log
-    # probabilites de chaque exemple de test sous le modele.
-    def compute_predictions(self, test_data):
-        # on prend le produit du vecteur representant la diagonale (np.prod(self.sigma)
-        c = -self.n_dims * np.log(2 * np.pi) / 2.0 - np.log(np.prod(self.sigma_sq)) / 2.0
-        # on somme sur l'axe 1 apres avoir divise par sigma puisque celui ci aussi est
-        # de dimension d
-        log_prob = c - np.sum((test_data - self.mu) ** 2.0 / (2.0 * self.sigma_sq), axis=1)
-        return log_prob
-
-
-class parzen:
-    def __init__(self, n_dims, sigma):
-        self.n_dims = n_dims
-        self.sigma = sigma
-        self.train_data = 0
-
-    def train(self, train_data):
-        self.train_data = train_data
-
-    def compute_predictions(self, test_data):
-        c = 1 / ((2 * np.pi) ** self.n_dims / 2) * (self.sigma ** self.n_dims)
-        log_prob = np.zeros(test_data.shape[0])
-
-        for i, k in enumerate(test_data):
-            acc = 0
-            for x in self.train_data:
-                p = (np.linalg.norm((x - k)) ** 2 / self.sigma ** 2) * (-0.5)
-                acc += c * np.exp(p)
-            acc = acc * 1/test_data.shape[0]
-            log_prob[i] = np.log(acc)
-
-        return log_prob
-
+import graphic_plotter
+import estimators
 
 class classif_bayes:
 
@@ -96,53 +51,31 @@ iris_test3 = iris[indices3[35:]]
 iris_train = np.concatenate([iris_train1, iris_train2, iris_train3])
 iris_test = np.concatenate([iris_test1, iris_test2, iris_test3])
 
-model = gauss_diag(4)
-model.train(iris_train1)
+#Graphiques estimateur 1d
+graphic_plotter.plot_1d(iris_train1)
 
+#Graphiques estimateur 2d
+graphic_plotter.plot_2d(iris_train1)
 
-# on crée une distribution normal avec les paramètres qu'on a calculé et on pige des valeurs
-mu = model.mu[0]
-sigma = np.sqrt(model.sigma_sq[0])
-s = np.random.normal(mu, sigma, 1000)
-s.sort()
-
-
-
-# on affiche les points sur l'axe des x
-pylab.plot(iris_train1[:, 0], len(iris_train1) * [0], "o")
-
-
-parzen1 = parzen(4, 2)
-parzen1.train(iris_train1)
-prob = np.exp(parzen1.compute_predictions(iris_train1[0:,-1]))
-parzen_graph = iris_train1[:, 0]
-parzen_graph.sort()
-pylab.plot(parzen_graph, prob, color="blue")
-
-# pour chaque valeur de la distribution, on calcule la probabilité de celle-ci avec la fonction de densité calculé
-pylab.plot(s, 1/(sigma * np.sqrt(2 * np.pi)) *
-           np.exp(- (s - mu)**2 / (2 * sigma**2)), color="red")
-
-pylab.show()
 
 #Bayes Diagonal 2d
 
 train_cols = [0,1]
 
-model_classe1_diag = gauss_diag(len(train_cols))
-model_classe2_diag = gauss_diag(len(train_cols))
-model_classe3_diag = gauss_diag(len(train_cols))
+model_classe1_diag = estimators.gauss_diag(len(train_cols))
+model_classe2_diag = estimators.gauss_diag(len(train_cols))
+model_classe3_diag = estimators.gauss_diag(len(train_cols))
 
 model_classe1_diag.train(iris_train1[:,train_cols])
 model_classe2_diag.train(iris_train2[:,train_cols])
 model_classe3_diag.train(iris_train3[:,train_cols])
 
 #liste modeles et priors
-models_diag = [model_classe1_diag,model_classe2_diag,model_classe3_diag]
+models_diag = [model_classe1_diag, model_classe2_diag, model_classe3_diag]
 priors = [0.3333, 0.3333, 0.3333]
 
 #classifieur
-classifieur = classif_bayes(models_diag,priors)
+classifieur = classif_bayes(models_diag, priors)
 
 #calcul des probs
 log_prob_train=classifieur.compute_predictions(iris_train[:, train_cols])
