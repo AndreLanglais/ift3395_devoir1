@@ -36,7 +36,7 @@ class parzen:
         self.train_data = train_data
 
     def compute_predictions(self, test_data):
-        c = 1 / ((2 * np.pi) ** self.n_dims / 2) * (self.sigma ** self.n_dims)
+        c = 1 / (((2 * np.pi) ** (self.n_dims / 2)) * (self.sigma**self.n_dims))
         log_prob = np.zeros(test_data.shape[0])
 
         for i, k in enumerate(test_data):
@@ -44,7 +44,7 @@ class parzen:
             for x in self.train_data:
                 p = (np.linalg.norm((x - k)) ** 2 / self.sigma ** 2) * (-0.5)
                 acc += c * np.exp(p)
-            acc = acc * 1/test_data.shape[0]
+            acc = acc/test_data.shape[0]
             log_prob[i] = np.log(acc)
 
         return log_prob
@@ -197,8 +197,8 @@ print "Taux d'erreur (test) %.2f%%" % ((1-(classesPred_test==iris_test[:,-1]).me
 
 #parzen sigma petit
 train_cols = [0,1]
-sigma_petit = 1
-sigma_grand = 10
+sigma_petit = 0.1
+sigma_grand = 4
 sigma_app = 2
 
 model_classe1_parzen = parzen(len(train_cols),sigma_petit)
@@ -220,7 +220,7 @@ classifieur = classif_bayes(models_parzen,priors)
 log_prob_train=classifieur.compute_predictions(iris_train[:, train_cols])
 log_prob_test=classifieur.compute_predictions(iris_test[:, train_cols])
 
-#
+
 classesPred_train = log_prob_train.argmax(1)+1
 classesPred_test = log_prob_test.argmax(1)+1
 
