@@ -7,7 +7,7 @@ import estimators
 def plot_1d(train_data):
     # Graphique estimateur 1d
     train_cols = [0]
-    sample = np.linspace(min(train_data[:, train_cols]), max(train_data[:, train_cols]), 1000)
+    sample = np.linspace(min(train_data[:, train_cols]), max(train_data[:, train_cols]), 500)
     # Affichage de l'estimateur gaussien diagonal
     model = estimators.gauss_diag(1)
 
@@ -17,9 +17,9 @@ def plot_1d(train_data):
     pylab.plot(sample, gaussien_prob, color="red", label="Gaussian")
 
     # Affichage de l'estimateur de Parzen avec noyau gaussien isotropique
-    low_sigma = 1
-    high_sigma = 5
-    good_sigma = 3
+    low_sigma = 0.01
+    high_sigma = 0.075
+    good_sigma = 0.030
 
     parzen1 = estimators.parzen(1, low_sigma)
     parzen2 = estimators.parzen(1, high_sigma)
@@ -34,8 +34,8 @@ def plot_1d(train_data):
     parzen3_prob = np.exp(parzen3.compute_predictions(sample))
 
     pylab.plot(sample, parzen1_prob, color="blue", label="Parzen (sigma = " + str(low_sigma) + ")")
-    pylab.plot(sample, parzen3_prob, color="orange", label="Parzen (sigma = " + str(high_sigma) + ")")
-    pylab.plot(sample, parzen2_prob, color="green", label="Parzen (sigma = " + str(good_sigma) + ") appropriate parameter")
+    pylab.plot(sample, parzen2_prob, color="orange", label="Parzen (sigma = " + str(high_sigma) + ")")
+    pylab.plot(sample, parzen3_prob, color="green", label="Parzen (sigma = " + str(good_sigma) + ") appropriate parameter")
     pylab.legend(loc="upper left")
     # on affiche les points sur l'axe des x
     pylab.plot(train_data[:, 0], len(train_data) * [0], "o")
@@ -59,9 +59,9 @@ def plot_2d(train_data):
     pylab.legend()
     pylab.show()
 
-    low_sigma = 1
-    high_sigma = 5
-    good_sigma = 3
+    low_sigma = 0.01
+    high_sigma = 0.075
+    good_sigma = 0.030
 
     parzen1_2d = estimators.parzen(2, low_sigma)
     parzen3_2d = estimators.parzen(2, high_sigma)
