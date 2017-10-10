@@ -55,14 +55,23 @@
 	
 	\section{Estimation de densité : paramétrique Gaussienne,
 		v.s. fenêtres de Parzen}
-	\subsection*{Gaussienne isotropique}
+	\subsection{Gaussienne isotropique}
 	
 	\subsubsection*{(a)}
+	Les paramètres sont la moyenne $\mu$ de dimension d et la variance $\sigma$ de dimension 1 \\
+	
 	
 	\subsubsection*{(b)}
+	\begin{equation}
+	\begin{split}
+		n &= |D| \\
+		\mu_{MaxVraiss} &= \sum_{i}^{n} \frac{x_{i}}{nd} \\
+		\sigma_{MaxVraiss}^{2} &= \sum_{i}^{n} \frac{(x_{i}- \mu)^{T}(x_{i} - \mu)}{nd} \\
+	\end{split}
+	\end{equation}
 	
 	\subsubsection*{(c)}
-	
+	$\mu$ se calcule en $O(nd)$  et $\sigma^{2} $ se calcule en $O(nd)$ aussi\\
 	\subsubsection*{(d)}
 	
 	\subsubsection*{(e)}
