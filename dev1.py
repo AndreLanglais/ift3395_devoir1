@@ -130,9 +130,9 @@ print "Taux d'erreur (test) %.2f%%" % ((1-(classesPred_test==iris_test[:,-1]).me
 
 #parzen sigma petit
 train_cols = [0,1]
-sigma_petit = 0.1
-sigma_grand = 0.75
-sigma_app = 0.3
+sigma_petit = 0.01
+sigma_grand = 0.075
+sigma_app = 0.02
 
 model_classe1_parzen = estimators.parzen(len(train_cols),sigma_petit)
 model_classe2_parzen = estimators.parzen(len(train_cols),sigma_petit)
@@ -235,7 +235,7 @@ print "Taux d'erreur (test) %.2f%%" % ((1-(classesPred_test==iris_test[:,-1]).me
 
 #Courbes apprentissages
 
-sigmas = np.linspace(0.01,1,100)
+sigmas = np.linspace(0.01,0.2,100)
 train_cols = [0,1]
 error_train = np.empty(sigmas.shape[0])
 error_val = np.empty(sigmas.shape[0])

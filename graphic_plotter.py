@@ -61,7 +61,7 @@ def plot_2d(train_data):
 
     low_sigma = 0.01
     high_sigma = 0.075
-    good_sigma = 0.030
+    good_sigma = 0.02
 
     parzen1_2d = estimators.parzen(2, low_sigma)
     parzen3_2d = estimators.parzen(2, high_sigma)
