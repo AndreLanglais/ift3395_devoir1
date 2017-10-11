@@ -131,8 +131,8 @@ print "Taux d'erreur (test) %.2f%%" % ((1-(classesPred_test==iris_test[:,-1]).me
 #parzen sigma petit
 train_cols = [0,1]
 sigma_petit = 0.1
-sigma_grand = 4
-sigma_app = 2
+sigma_grand = 0.75
+sigma_app = 0.3
 
 model_classe1_parzen = estimators.parzen(len(train_cols),sigma_petit)
 model_classe2_parzen = estimators.parzen(len(train_cols),sigma_petit)
@@ -261,8 +261,8 @@ for i,k in enumerate(sigmas):
     log_prob_test = classifieur.compute_predictions(iris_test[:, train_cols])
 
     #
-    classesPred_train = np.sum((log_prob_train.argmax(1) + 1) == iris_train[:, -1])
-    classesPred_test = np.sum((log_prob_test.argmax(1) + 1) == iris_test[:, -1])
+    classesPred_train = iris_train.shape[0] - np.sum((log_prob_train.argmax(1) + 1) == iris_train[:, -1])
+    classesPred_test = iris_test.shape[0] - np.sum((log_prob_test.argmax(1) + 1) == iris_test[:, -1])
     error_train[i] = classesPred_train
     error_val[i] = classesPred_test
 
@@ -296,8 +296,8 @@ for i,k in enumerate(sigmas):
     log_prob_test = classifieur.compute_predictions(iris_test[:, train_cols])
 
     #
-    classesPred_train = np.sum((log_prob_train.argmax(1) + 1) == iris_train[:, -1])
-    classesPred_test = np.sum((log_prob_test.argmax(1) + 1) == iris_test[:, -1])
+    classesPred_train = iris_train.shape[0] - np.sum((log_prob_train.argmax(1) + 1) == iris_train[:, -1])
+    classesPred_test = iris_test.shape[0] - np.sum((log_prob_test.argmax(1) + 1) == iris_test[:, -1])
     error_train[i] = classesPred_train
     error_val[i] = classesPred_test
 
