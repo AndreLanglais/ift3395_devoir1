@@ -73,35 +73,44 @@
 	\subsubsection*{(c)}
 	$\mu$ se calcule en $O(nd)$  et $\sigma^{2} $ se calcule en $O(nd)$ aussi\\
 	\subsubsection*{(d)}
+	
 	\begin{equation}
-	\frac{1}{2\pi^{\frac{d}{2}}\sigma^d}\exp^{\frac{-1}{2}\frac{x-\mu}{dénominateur}
+		p_{gauss-isotrop} = 
+		\frac{1}{2\pi^{\frac{d}{2}}\sigma^d}\exp^{\frac{-1}{2}\frac{\Vert x-\mu\Vert^2}{\sigma^2}}
 	\end{equation}
 	
 	\subsubsection*{(e)}
-	
+	Le temps de calcul pour la prédiction d'un point de test $x$ se fait en $O(1)$
 	
 	\subsection{Fenêtres de Parzen avec noyau Gaussien isotropique}
 	
 	\subsubsection*{(a)}
-	
+	Puisque $\sigma$ est fixé, la phase d'entraînement consiste à garder l'ensemble d'entraînement en mémoire.
 	\subsubsection*{(b)}
-	
+	\begin{equation}
+	p_{mathrmParzen} =
+	\frac{1}{n}\sum_{i}^{n}\frac{1}{2\pi^{\frac{d}{2}}\sigma^d}\exp^{\frac{-1}{2}\frac{\Vert x-x_i\Vert^2}{\sigma^2}}
+	\end{equation}
 	\subsubsection*{(c)}
-	
+	Le temps de calcul pour la prédiction d'un point de test $x$ se fait en $O(n)$
 	
 	\subsection{Capacité}
 	
 	\subsubsection*{(a)}
+	Parzen a plus de capacité puisqu'on peut définir des régions de décisions plus précise. Il y a plus de changement rapide lorsque l'on se déplace dans la région totale.
 	
 	\subsubsection*{(b)}
+	Parzen est le modèle qui peut plus facilement être dans un cas de surapprentissage. Cela se produit dans le cas où les données sont plus éparpillées et lorsque le $sigma$ est très petit.
 	
 	\subsubsection*{(c)}
-	
+	Pour la Gaussienne, on veut optimiser les paramètres selon les données. Elles sont optimisables avec la méthode de vraisemblance. Pour Parzen, on ne peut pas optimiser le $sigma$ selon la méthode de vraisemblance donc on doit le choisir de façon empirique.
 	
 	\subsection{Gaussienne diagonale}
 	
 	\subsubsection*{(a)}
-	
+	\begin{equation}
+	\frac{1}{2\pi^{\frac{d}{2}}\sqrt{\vert\Sigma\vert}}\exp^{\frac{-1}{2}\Vert x-\mu\Vert^T{\Sigma^{-1}}(x-\mu)}
+	\end{equation}
 	\subsubsection*{(b)}
 	
 	\subsubsection*{(c)}
@@ -112,6 +121,8 @@
 	\subsection{Problème de classification}
 		
 	\subsubsection*{(a)}
+	En se basant sur un classifieur de Bayes et en utilisant comme modèle une Gaussien isotropique, on doit d'abord entraîner les données en estimant $mu$ et $sigma^2$ à l'aide de la méthode de vraisemblance.
+	Ensuite, on peut déterminer les probabilités à priori pour les différentes classes.
 		
 	\subsubsection*{(b)}
 	
