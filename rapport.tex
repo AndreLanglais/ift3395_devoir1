@@ -114,11 +114,39 @@
 	\subsubsection*{(b)}
 	Les composantes sont chacune tirées d'un distribution gaussienne donc elles sont aléatoires. De plus, le fait de tirer une des composantes n'impacte pas les prochaines donc elles sont indépendantes.
 	\subsubsection*{(c)}
+	Voici l'équation qui permettrait de minimiser le risque empirique selon le maximum de vraisemblance
 	\begin{equation}
-	g(x) = \frac{1}{2\pi^{\frac{d}{2}}\sigma^d}\exp^{\frac{-1}{2}\frac{\Vert x-\mu\Vert^2}{\sigma^2}} +\log(P_c = \frac{n_c}{n} \approx P(Y=c))
+	\begin{split}
+		\prod_{i}^{n} p(x_{i}) = -log(\prod_{i}^{n}\frac{1}{2\pi^{\frac{d}{2}}\sqrt{\vert\Sigma\vert}}\exp^{\frac{-1}{2}\Vert x_{i}-\mu\Vert^T{\Sigma^{-1}}(x_{i}-\mu)})
+	\end{split}
 	\end{equation}
 	\subsubsection*{(d)}
+	Résolution de l'équation
+		\begin{equation}
+		\begin{split}
+		\prod_{i}^{n} p(x_{i}) &=
+		- \sum log(\frac{1}{2\pi^{\frac{d}{2}}\sqrt{\vert\Sigma\vert}}\exp^{\frac{-1}{2} (x_{i}-\mu)^T{\Sigma^{-1}}(x_{i}-\mu)}) \\		
+		 &= -\sum log(\frac{1}{2\pi^{\frac{d}{2}}\sqrt{\vert\Sigma\vert}}) - \frac{1}{2}( x_{i}-\mu)^T{\Sigma^{-1}}(x_{i}-\mu) \\
+		 &= -\sum -log(2\pi) - log(\sqrt{\vert\Sigma\vert}) - \frac{1}{2}( x_{i}-\mu)^T{\Sigma^{-1}}(x_{i}-\mu)\\
+		 &=\frac{nd}{2} log(2\pi) + n log(\sqrt{\vert\Sigma\vert}) + \sum \frac{1}{2}( x_{i}-\mu)^T{\Sigma^{-1}}(x_{i}-\mu)		 
+		\end{split}
+		\end{equation}
 	
+	On dérive par rapport à $\mu$ pour trouver le premier paramètre
+		\begin{equation}
+		\begin{split}
+		\frac{\partial}{\partial \mu}\prod_{i}^{n} p(x_{i}) &= 0 + 0 + \sum 2(\mu - x_{i}) \Sigma^{-1}	 
+		\end{split}
+		\end{equation}	
+		
+	On la met égal à zéro
+		\begin{equation}
+		\begin{split}
+		\frac{\partial}{\partial \mu}\prod_{i}^{n} p(x_{i}) &= 0 \\
+		\sum 2(\mu - x_{i}) \Sigma^{-1} &= 0 \\
+		\mu = \frac{\sum_{i}^{n} x_{i}}{n}
+		\end{split}
+		\end{equation}		
 	
 	\subsection{Problème de classification}
 		
