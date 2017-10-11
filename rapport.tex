@@ -53,8 +53,8 @@
 	 Il peut paraître surprenant que le pourcentage soit si bas, mais on peut vérifier visuellement pourquoi on obtient un tel pourcentage
 	
 	
-	\section{Estimation de densité : paramétrique Gaussienne,
-		v.s. fenêtres de Parzen}
+	\section{Estimation de densité : 
+		\\paramétrique Gaussienne, v.s. fenêtres de Parzen}
 	\subsection{Gaussienne isotropique}
 	
 	\subsubsection*{(a)}
@@ -112,16 +112,18 @@
 	\frac{1}{2\pi^{\frac{d}{2}}\sqrt{\vert\Sigma\vert}}\exp^{\frac{-1}{2}\Vert x-\mu\Vert^T{\Sigma^{-1}}(x-\mu)}
 	\end{equation}
 	\subsubsection*{(b)}
-	
+	Les composantes sont chacune tirées d'un distribution gaussienne donc elles sont aléatoires. De plus, le fait de tirer une des composantes n'impacte pas les prochaines donc elles sont indépendantes.
 	\subsubsection*{(c)}
-	
+	\begin{equation}
+	g(x) = \frac{1}{2\pi^{\frac{d}{2}}\sigma^d}\exp^{\frac{-1}{2}\frac{\Vert x-\mu\Vert^2}{\sigma^2}} +\log(P_c = \frac{n_c}{n} \approx P(Y=c))
+	\end{equation}
 	\subsubsection*{(d)}
 	
 	
 	\subsection{Problème de classification}
 		
 	\subsubsection*{(a)}
-	En se basant sur un classifieur de Bayes et en utilisant comme modèle une Gaussien isotropique, on doit d'abord entraîner les données en estimant $mu$ et $sigma^2$ à l'aide de la méthode de vraisemblance.
+	En se basant sur un classifieur de Bayes et en utilisant comme modèle une Gaussien isotropique, on doit d'abord entraîner les données en estimant $\mu$ et $\sigma^2$ à l'aide de la méthode de vraisemblance.
 	Ensuite, on peut déterminer les probabilités à priori pour les différentes classes.
 		
 	\subsubsection*{(b)}
