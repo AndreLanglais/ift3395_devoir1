@@ -42,6 +42,7 @@ class parzen:
         deno = (2.0*np.pi) ** (self.n_dims/2.0)
         deno1 = self.sigma ** self.n_dims
         c = 1 / float(deno * deno1)
+        n = 1 / float(test_data.shape[0])
         log_prob = np.zeros(test_data.shape[0])
 
         for i, k in enumerate(test_data):
@@ -49,10 +50,10 @@ class parzen:
             for x in self.train_data:
                 norm_sq = np.linalg.norm((k-x)) ** 2
                 sigma_sq = self.sigma ** 2
-                p = norm_sq / float(sigma_sq) * (-0.5)
-                acc += c * np.exp(p)
-                test = 1
-            acc = acc * 1/float(test_data.shape[0])
-            log_prob[i] = np.log(acc)
-
+                p = (-0.5) * norm_sq / float(sigma_sq)
+                acc += np.exp(p)
+            if acc == 0:
+                log_prob[i] = -np.inf
+            else:
+                log_prob[i] = np.log(n) + np.log(c) + np.log(acc)
         return log_prob

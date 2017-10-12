@@ -271,7 +271,7 @@ pylab.plot(sigmas,error_val)
 pylab.show()
 
 #courbes 4D
-train_cols = [0, 3]
+train_cols = [0, 1, 2, 3]
 error_train = np.empty(sigmas.shape[0])
 error_val = np.empty(sigmas.shape[0])
 
@@ -302,6 +302,6 @@ for i,k in enumerate(sigmas):
     error_val[i] = classesPred_test
 
 
-pylab.plot(sigmas,error_train)
-pylab.plot(sigmas,error_val)
+pylab.plot(sigmas, error_train)
+pylab.plot(sigmas, error_val)
 pylab.show()

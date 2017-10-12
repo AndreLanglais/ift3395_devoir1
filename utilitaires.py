@@ -60,7 +60,7 @@ def gridplot(classifieur,train,test,n_points=50):
     ## fin du hack
 
     labels = ['grille','train','test']
-    pylab.legend(handles,labels)
+    #pylab.legend(handles,labels)
 
     pylab.axis('equal')
     pylab.show()
@@ -82,4 +82,5 @@ for example: combine((1,2),(3,4)) returns
     listout=[]                      # listout initialization
     rloop(seqin,listout,[])         # start recursive process
     return listout
+
 

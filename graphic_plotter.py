@@ -19,7 +19,7 @@ def plot_1d(train_data):
     # Affichage de l'estimateur de Parzen avec noyau gaussien isotropique
     low_sigma = 0.01
     high_sigma = 0.075
-    good_sigma = 0.030
+    good_sigma = 0.020
 
     parzen1 = estimators.parzen(1, low_sigma)
     parzen2 = estimators.parzen(1, high_sigma)
