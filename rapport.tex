@@ -75,8 +75,8 @@
 	\subsubsection*{(d)}
 	
 	\begin{equation}
-		p_{gauss-isotrop} = 
-		\frac{1}{2\pi^{\frac{d}{2}}\sigma^d}\exp^{\frac{-1}{2}\frac{\Vert x-\mu\Vert^2}{\sigma^2}}
+		p_{gauss-isotrop}(x) = 
+		\frac{1}{(2\pi)^{\frac{d}{2}}\sigma^d}\exp^{\frac{-1}{2}\frac{\Vert x-\mu\Vert^2}{\sigma^2}}
 	\end{equation}
 	
 	\subsubsection*{(e)}
@@ -88,8 +88,8 @@
 	Puisque $\sigma$ est fixé, la phase d'entraînement consiste à garder l'ensemble d'entraînement en mémoire.
 	\subsubsection*{(b)}
 	\begin{equation}
-	p_{mathrmParzen} =
-	\frac{1}{n}\sum_{i}^{n}\frac{1}{2\pi^{\frac{d}{2}}\sigma^d}\exp^{\frac{-1}{2}\frac{\Vert x-x_i\Vert^2}{\sigma^2}}
+	p_{mathrmParzen}(x) =
+	\frac{1}{n}\sum_{i}^{n}\frac{1}{(2\pi)^{\frac{d}{2}}\sigma^d}\exp^{\frac{-1}{2}\frac{\Vert x-x_i\Vert^2}{\sigma^2}}
 	\end{equation}
 	\subsubsection*{(c)}
 	Le temps de calcul pour la prédiction d'un point de test $x$ se fait en $O(n)$
@@ -103,13 +103,13 @@
 	Parzen est le modèle qui peut plus facilement être dans un cas de surapprentissage. Cela se produit dans le cas où les données sont plus éparpillées et lorsque le $sigma$ est très petit.
 	
 	\subsubsection*{(c)}
-	Pour la Gaussienne, on veut optimiser les paramètres selon les données. Elles sont optimisables avec la méthode de vraisemblance. Pour Parzen, on ne peut pas optimiser le $sigma$ selon la méthode de vraisemblance donc on doit le choisir de façon empirique.
+	Pour la Gaussienne, on veut optimiser les paramètres selon les données. Elles sont optimisables avec la méthode de vraisemblance. Pour Parzen, on ne peut pas optimiser le $sigma$ selon la méthode de vraisemblance. En effet, la variance de la Gaussienne au point $x$ ne se calcule pas puisqu'il n'y a qu'une seule donnée pour cette Gaussienne.
 	
 	\subsection{Gaussienne diagonale}
 	
 	\subsubsection*{(a)}
 	\begin{equation}
-	\frac{1}{2\pi^{\frac{d}{2}}\sqrt{\vert\Sigma\vert}}\exp^{\frac{-1}{2}\Vert x-\mu\Vert^T{\Sigma^{-1}}(x-\mu)}
+	p_{gausDiag}(x) = \frac{1}{(2\pi)^{\frac{d}{2}}\sqrt{\vert\Sigma\vert}}\exp^{\frac{-1}{2}\Vert x-\mu\Vert^T{\Sigma^{-1}}(x-\mu)}
 	\end{equation}
 	\subsubsection*{(b)}
 	Les composantes sont chacune tirées d'un distribution gaussienne donc elles sont aléatoires. De plus, le fait de tirer une des composantes n'impacte pas les prochaines donc elles sont indépendantes.
@@ -117,7 +117,7 @@
 	Voici l'équation qui permettrait de minimiser le risque empirique selon le maximum de vraisemblance
 	\begin{equation}
 	\begin{split}
-		\prod_{i}^{n} p(x_{i}) = -log(\prod_{i}^{n}\frac{1}{2\pi^{\frac{d}{2}}\sqrt{\vert\Sigma\vert}}\exp^{\frac{-1}{2}\Vert x_{i}-\mu\Vert^T{\Sigma^{-1}}(x_{i}-\mu)})
+		\prod_{i}^{n} p(x_{i}) = -log(\prod_{i}^{n}\frac{1}{(2\pi)^{\frac{d}{2}}\sqrt{\vert\Sigma\vert}}\exp^{\frac{-1}{2}\Vert x_{i}-\mu\Vert^T{\Sigma^{-1}}(x_{i}-\mu)})
 	\end{split}
 	\end{equation}
 	\subsubsection*{(d)}
@@ -125,8 +125,8 @@
 		\begin{equation}
 		\begin{split}
 		\prod_{i}^{n} p(x_{i}) &=
-		- \sum log(\frac{1}{2\pi^{\frac{d}{2}}\sqrt{\vert\Sigma\vert}}\exp^{\frac{-1}{2} (x_{i}-\mu)^T{\Sigma^{-1}}(x_{i}-\mu)}) \\		
-		 &= -\sum log(\frac{1}{2\pi^{\frac{d}{2}}\sqrt{\vert\Sigma\vert}}) - \frac{1}{2}( x_{i}-\mu)^T{\Sigma^{-1}}(x_{i}-\mu) \\
+		- \sum log(\frac{1}{(2\pi)^{\frac{d}{2}}\sqrt{\vert\Sigma\vert}}\exp^{\frac{-1}{2} (x_{i}-\mu)^T{\Sigma^{-1}}(x_{i}-\mu)}) \\		
+		 &= -\sum log(\frac{1}{(2\pi)^{\frac{d}{2}}\sqrt{\vert\Sigma\vert}}) - \frac{1}{2}( x_{i}-\mu)^T{\Sigma^{-1}}(x_{i}-\mu) \\
 		 &= -\sum -log(2\pi) - log(\sqrt{\vert\Sigma\vert}) - \frac{1}{2}( x_{i}-\mu)^T{\Sigma^{-1}}(x_{i}-\mu)\\
 		 &=\frac{nd}{2} log(2\pi) + n log(\sqrt{\vert\Sigma\vert}) + \sum \frac{1}{2}( x_{i}-\mu)^T{\Sigma^{-1}}(x_{i}-\mu)		 
 		\end{split}
@@ -155,5 +155,12 @@
 	Ensuite, on peut déterminer les probabilités à priori pour les différentes classes.
 		
 	\subsubsection*{(b)}
+	\begin{equation}
+	\begin{split}
+	c &\in \{1, ... , n\} \\
+	B_{Gaussisotrop}(x) &= 
+	\frac{1}{(2\pi)^{\frac{d}{2}}\sigma^d}\exp^{\frac{-1}{2}\frac{\Vert x-\mu\Vert^2}{\sigma^2}} + \log(P_c = \frac{n_c}{n} \approx P(Y = c))
+	\end{split}
+	\end{equation}
 	
 \end{document}\
