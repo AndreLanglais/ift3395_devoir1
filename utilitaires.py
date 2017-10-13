@@ -60,6 +60,9 @@ def gridplot(classifieur,train,test,n_points=50):
     ## fin du hack
 
     labels = ['grille','train','test']
+    pylab.title("Decision area")
+    pylab.xlabel("Feature 0")
+    pylab.ylabel("Feature 1")
     #pylab.legend(handles,labels)
 
     pylab.axis('equal')

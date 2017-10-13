@@ -59,6 +59,7 @@ graphic_plotter.plot_2d(iris_train1)
 
 #Bayes Diagonal 2d
 
+
 def estimate_gauss(train_cols):
     model_classe1_diag = estimators.gauss_diag(len(train_cols))
     model_classe2_diag = estimators.gauss_diag(len(train_cols))
@@ -77,7 +78,7 @@ def estimate_gauss(train_cols):
     log_prob_train = classifieur.compute_predictions(iris_train[:, train_cols])
     log_prob_test = classifieur.compute_predictions(iris_test[:, train_cols])
 
-    #
+    #choix des classes
     classesPred_train = log_prob_train.argmax(1) + 1
     classesPred_test = log_prob_test.argmax(1) + 1
 
@@ -94,6 +95,7 @@ def estimate_gauss(train_cols):
 
 #Bayes 2D
 train_cols = [0, 1]
+print "Région de décision Bayes: Gaussien Diagonal"
 estimate_gauss(train_cols)
 
 #Bayes 4D
@@ -132,21 +134,24 @@ def estimate_parzen(train_cols, sigma):
                          iris_test[:, train_cols + [-1]],
                          n_points=50)
 
-    print "Parzen " + str(sigma)
     print "Taux d'erreur (entrainement) %.2f%%" % ((1 - (classesPred_train == iris_train[:, -1]).mean()) * 100.0)
     print "Taux d'erreur (test) %.2f%%" % ((1 - (classesPred_test == iris_test[:, -1]).mean()) * 100.0)
 
 # Parzen sigma petit
-train_cols = [0,1]
+train_cols = [0, 1]
 sigma_petit = 0.01
 sigma_grand = 0.075
 sigma_app = 0.02
 
+print "Région de décision Bayes: Parzen sigma petit"
 estimate_parzen(train_cols, sigma_petit)
+print "Région de décision Bayes: Parzen sigma grand"
 estimate_parzen(train_cols, sigma_grand)
+print "Région de décision Bayes: Parzen sigma approprié"
 estimate_parzen(train_cols, sigma_app)
 
 # Courbes apprentissages
+
 
 def learning_curve(train_cols, sigmas):
     error_train = np.empty(sigmas.shape[0])
@@ -192,8 +197,13 @@ train_cols = [0, 1]
 
 curve_data = learning_curve(train_cols, sigmas)
 
-pylab.plot(sigmas, curve_data[0])
-pylab.plot(sigmas, curve_data[1])
+pylab.plot(sigmas, curve_data[0], color="blue", label="Train")
+pylab.plot(sigmas, curve_data[1], color="orange", label="Test")
+pylab.legend(loc="upper left")
+
+pylab.title("2D Parzen learning curve")
+pylab.xlabel("Sigma value")
+pylab.ylabel("Number of errors")
 pylab.show()
 
 # Courbes 4D
@@ -202,6 +212,11 @@ train_cols = [0, 1, 2, 3]
 
 curve_data = learning_curve(train_cols, sigmas)
 
-pylab.plot(sigmas, curve_data[0])
-pylab.plot(sigmas, curve_data[1])
+pylab.plot(sigmas, curve_data[0], color="blue", label="Train")
+pylab.plot(sigmas, curve_data[1], color="orange", label="Test")
+pylab.legend(loc="upper left")
+
+pylab.title("4D Parzen learning curve")
+pylab.xlabel("Sigma value")
+pylab.ylabel("Number of errors")
 pylab.show()
