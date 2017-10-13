@@ -17,7 +17,10 @@ class gauss_diag:
     # probabilites de chaque exemple de test sous le modele.
     def compute_predictions(self, test_data):
         # on prend le produit du vecteur representant la diagonale (np.prod(self.sigma)
-        c = -self.n_dims * np.log(2 * np.pi) / 2.0 - np.log(np.prod(self.sigma_sq)) / 2.0
+        if self.n_dims == 1:
+            c = -np.log(2 * np.pi) / 2.0 - np.log(np.sqrt(self.sigma_sq)) / 2.0
+        else:
+            c = -self.n_dims * np.log(2 * np.pi) / 2.0 - np.log(np.prod(self.sigma_sq)) / 2.0
         # on somme sur l'axe 1 apres avoir divise par sigma puisque celui ci aussi est
         # de dimension d
         if self.n_dims == 1:

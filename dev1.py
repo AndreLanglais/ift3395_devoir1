@@ -101,8 +101,8 @@ estimate_gauss(train_cols)
 train_cols = [0, 1, 2, 3]
 estimate_gauss(train_cols)
 
-# Bayes Parzen 2d
 
+# Bayes Parzen 2d
 def estimate_parzen(train_cols, sigma):
 
     model_classe1_parzen = estimators.parzen(len(train_cols), sigma)

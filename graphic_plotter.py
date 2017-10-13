@@ -16,6 +16,7 @@ def plot_1d(train_data):
     gaussien_prob = np.exp(model.compute_predictions(sample))
     pylab.plot(sample, gaussien_prob, color="red", label="Gaussian")
 
+
     # Affichage de l'estimateur de Parzen avec noyau gaussien isotropique
     low_sigma = 0.01
     high_sigma = 0.075
@@ -40,6 +41,9 @@ def plot_1d(train_data):
     # on affiche les points sur l'axe des x
     pylab.plot(train_data[:, 0], len(train_data) * [0], "o")
 
+    pylab.title("1D Densities")
+    pylab.xlabel("Parameter 0")
+    pylab.ylabel("Probability density")
     pylab.show()
 
 
@@ -54,9 +58,12 @@ def plot_2d(train_data):
     gauss_2d = estimators.gauss_diag(2)
     gauss_2d.train(train_data[:, train_cols])
 
-    pylab.plot(train_data[:, train_col_x], train_data[:, train_col_y], "o", label="Gaussian")
+    pylab.plot(train_data[:, train_col_x], train_data[:, train_col_y], "o")
     pylab.contour(sample_x, sample_y, create_contour_z(sample_x, sample_y, gauss_2d))
-    pylab.legend()
+
+    pylab.title("2D Gaussian density")
+    pylab.xlabel("Parameter 0")
+    pylab.ylabel("Parameter 1")
     pylab.show()
 
     low_sigma = 0.01
@@ -71,22 +78,31 @@ def plot_2d(train_data):
     parzen2_2d.train(train_data[:, train_cols])
     parzen3_2d.train(train_data[:, train_cols])
 
-    pylab.plot(train_data[:, train_col_x], train_data[:, train_col_y], "o", label="Parzen 2d (sigma = " + str(low_sigma) + ")")
+    pylab.plot(train_data[:, train_col_x], train_data[:, train_col_y], "o")
     pylab.contour(sample_x, sample_y, create_contour_z(sample_x, sample_y, parzen1_2d))
-    pylab.legend()
+
+    pylab.title("2D Parzen density with sigma = " + str(low_sigma))
+    pylab.xlabel("Parameter 0")
+    pylab.ylabel("Parameter 1")
     pylab.show()
 
-    pylab.plot(train_data[:, train_col_x], train_data[:, train_col_y], "o", label="Parzen 2d (sigma = " + str(high_sigma) + ")")
+    pylab.plot(train_data[:, train_col_x], train_data[:, train_col_y], "o")
     pylab.contour(sample_x, sample_y, create_contour_z(sample_x, sample_y, parzen3_2d))
-    pylab.legend()
+
+    pylab.title("2D Parzen density with sigma = " + str(high_sigma))
+    pylab.xlabel("Parameter 0")
+    pylab.ylabel("Parameter 1")
     pylab.show()
 
-    pylab.plot(train_data[:, train_col_x], train_data[:, train_col_y], "o", label="Parzen 2d (sigma = " + str(good_sigma) + ") appropriate parameter")
+    pylab.plot(train_data[:, train_col_x], train_data[:, train_col_y], "o")
     pylab.contour(sample_x, sample_y, create_contour_z(sample_x, sample_y, parzen2_2d))
-    pylab.legend()
+
+    pylab.title("2D Parzen density with sigma = " + str(good_sigma))
+    pylab.xlabel("Parameter 0")
+    pylab.ylabel("Parameter 1")
     pylab.show()
 
-
+#Calculate the probability for each pair of points (x,y)
 def create_contour_z(sample_x, sample_y, estimator):
     prob = np.ndarray((sample_x.shape[0], sample_y.shape[0]))
     for i, k in enumerate(sample_x):
